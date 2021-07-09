@@ -1,0 +1,15 @@
+[tool.pyright]
+exclude = [
+    "**/.git",
+    "**/.svn",
+    "**/.hg",
+    "**/CVS",
+    "**/.DS_Store",
+    "**/venv",
+    "**/data",
+]
+
+[tool.pytest.ini_options]
+testpaths = [
+    "tests",
+]
