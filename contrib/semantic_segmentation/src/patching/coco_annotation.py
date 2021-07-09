@@ -334,23 +334,23 @@ def coco_annotations_by_image_id(coco_json: Dict) -> Dict[int, List]:
     return annotations_by_image_id
 
 
-def extract_windowed_patches_and_mask_images_sub_annotation(
+def extract_pyramid_patches(
     image: object,
-    annotations: List[Dict],
+    mask: object,
     classes: List[int],
     patch_dimension: Tuple[int, int] = (1000, 1000),
     window_overlap: float = 0.1,
     threshold: int = 100,
 ) -> List[Tuple[object, object]]:
-    """For an input image with a relative list of annotations return
+    """For an input image with a relative mask return
     a list of all extracted patched images and corresponding mask images
 
     Parameters
     ----------
     image : object
         Original source image
-    annotations : List[Dict]
-        List of all original source image annotations
+    mask : object
+        Original mask image
     classes : List[int]
         list of classes to use for the patch image
     patch_dimension : Tuple(Int, Int)
