@@ -76,6 +76,7 @@ def extract_pyramid_patches(
     mask: object,
     classes: List[int],
     patch_dimension: Tuple[int, int] = (1000, 1000),
+    pyramid_dimensions: List[int] = [1000, 2000],
     window_overlap: float = 0.1,
     threshold: int = 100,
 ) -> List[Tuple[object, object]]:
@@ -92,6 +93,8 @@ def extract_pyramid_patches(
         list of classes to use for the patch image
     patch_dimension : Tuple(Int, Int)
         Width and Height of the extracted patch
+    pyramid_dimensions : List[int]
+        List of Pyramid patch sizes
     window_overlap : Float
         increment window by % of patch_dimension
     threshold : Int
@@ -104,15 +107,15 @@ def extract_pyramid_patches(
     """
     patch_images = []
 
-    patches = extract_patches(
-        image=image, 
-        mask=mask,
-        classes=classes,                                                               
-        patch_dimension=patch_dimension, 
-        window_overlap=window_overlap,
-        threshold=threshold)
+    for pyramid_dimension in pyramid_dimensions:
+        patches = extract_patches(
+            image=image, 
+            mask=mask,
+            classes=classes,                                                               
+            patch_dimension=(pyramid_dimension, pyramid_dimension), 
+            window_overlap=window_overlap,
+            threshold=threshold)
 
-    patch_images.extend((i.resize(patch_dimension), p.resize(patch_dimension)) for i, p in patches)
+        patch_images.extend((i.resize(patch_dimension), p.resize(patch_dimension)) for i, p in patches)
 
     return patch_images
-
