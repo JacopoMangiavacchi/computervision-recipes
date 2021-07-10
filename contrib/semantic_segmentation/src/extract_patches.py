@@ -56,6 +56,7 @@ def process_file(
         mask_filepath = join(input_masks_dir, all_masks[index])
         image = Image.open(image_filepath)
         mask = Image.open(mask_filepath)
+        name = image_filepath.split("/")[-1]
 
         patch_images = extract_pyramid_patches(
             image=image, 
@@ -69,7 +70,7 @@ def process_file(
         if index in train_indexes:
             save_patch_and_mask(
                 patch_images,
-                image_filepath,
+                name,
                 output_images_dir,
                 patch_folder,
                 mask_folder,
@@ -78,7 +79,7 @@ def process_file(
         if index in val_indexes:
             save_patch_and_mask(
                 patch_images,
-                image_filepath,
+                name,
                 output_images_dir,
                 patch_folder,
                 mask_folder,
@@ -87,7 +88,7 @@ def process_file(
         if index in test_indexes:
             save_patch_and_mask(
                 patch_images,
-                image_filepath,
+                name,
                 output_images_dir,
                 patch_folder,
                 mask_folder,
